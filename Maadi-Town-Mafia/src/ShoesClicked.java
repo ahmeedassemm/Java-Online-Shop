@@ -1,0 +1,108 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundSize;
+import java.awt.*;
+
+public class ShoesClicked implements EventHandler<ActionEvent> {
+    private Stage primaryStage;
+    Button small = new Button("40");
+    Button medium = new Button("41");
+    Button large = new Button("42");
+    Button white = new Button("White");
+    Button grey = new Button("Grey");
+    Button black = new Button("Black");
+    Button checkout = new Button("Checkout");
+    Text size= new Text("Size");
+    Text colour = new Text("Colour");
+    Image shoesImg=new Image("shoes.jpg");
+    ImageView shoesview = new ImageView(shoesImg);
+
+    Background background = new Background(new BackgroundFill(Color.LIGHTBLUE, null,null));
+    Image img=new Image("background.jpg");
+    Background background2 = new Background(new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,new BackgroundSize(700, 500, false, false, false, false)));
+    ShoesClicked(Stage s){
+        this.primaryStage=s;
+    }
+    void createNewSceneLogin(Stage primaryStage){
+        primaryStage.setTitle("Shoes");
+        Pane pane1= new Pane();
+        Scene scene1 = new Scene(pane1,700,500);
+        pane1.getChildren().addAll(small,medium,large,white,grey,black,size,colour,checkout,shoesview);
+        pane1.setBackground(background2);
+        resize(pane1,scene1);
+        scene1.widthProperty().addListener((obs,oldWidth,newWidth)->resize(pane1,scene1));
+        scene1.heightProperty().addListener((obs,oldHeight,newHeight)->resize(pane1,scene1));
+        shoesview.fitHeightProperty().bind(scene1.heightProperty().divide(5));
+        shoesview.fitWidthProperty().bind(scene1.widthProperty().divide(5));
+        size.setFill(Color.BROWN);
+
+        size.setStrokeWidth(2);
+
+        size.setStroke(Color.RED);
+
+        colour.setFill(Color.BROWN);
+
+        colour.setStrokeWidth(2);
+
+        colour.setStroke(Color.RED);
+
+
+        ShoppingCart handle3 = new ShoppingCart(primaryStage);
+        primaryStage.setScene(scene1);
+        primaryStage.show();
+    }
+    public void resize(Pane p , Scene s) {
+        double sceneWidth = s.getWidth();
+        double sceneHeight = s.getHeight();
+        small.setLayoutX(sceneWidth*0.9/2);
+        small.setLayoutY(sceneHeight/3);
+
+        medium.setLayoutX(sceneWidth/2);
+        medium.setLayoutY((sceneHeight/3));
+
+        large.setLayoutX(sceneWidth*1.1/2);
+        large.setLayoutY(sceneHeight/3);
+
+        white.setLayoutX(sceneWidth*0.8/2);
+        white.setLayoutY((sceneHeight/2));
+
+        black.setLayoutX(sceneWidth/2);
+        black.setLayoutY(sceneHeight/2);
+
+        grey.setLayoutX(sceneWidth*1.2/2);
+        grey.setLayoutY(sceneHeight/2);
+
+        size.setLayoutX(sceneWidth*0.8/2);
+        size.setLayoutY(sceneHeight/3);
+
+        colour.setLayoutX(sceneWidth*0.7/2);
+        colour.setLayoutY(sceneHeight/2);
+
+        checkout.setLayoutX(sceneWidth*0.8/2);
+        checkout.setLayoutY(sceneHeight*1.2/2);
+
+        shoesview.setLayoutX(sceneWidth*1.2/3);
+        shoesview.setLayoutY(sceneHeight/9);
+    }
+    @Override
+    public void handle(ActionEvent a){
+        createNewSceneLogin(primaryStage);
+    }
+
+}
